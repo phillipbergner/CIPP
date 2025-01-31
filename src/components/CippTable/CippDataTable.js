@@ -17,13 +17,11 @@ import { ApiGetCallWithPagination } from "../../api/ApiCall";
 import { utilTableMode } from "./util-tablemode";
 import { utilColumnsFromAPI } from "./util-columnsFromAPI";
 import { CIPPTableToptoolbar } from "./CIPPTableToptoolbar";
-import { Info, More, MoreHoriz } from "@mui/icons-material";
+import { More, MoreHoriz } from "@mui/icons-material";
 import { CippOffCanvas } from "../CippComponents/CippOffCanvas";
 import { useDialog } from "../../hooks/use-dialog";
 import { CippApiDialog } from "../CippComponents/CippApiDialog";
 import { getCippError } from "../../utils/get-cipp-error";
-import { Box } from "@mui/system";
-import { useSettings } from "../../hooks/use-settings";
 
 export const CippDataTable = (props) => {
   const {
@@ -63,9 +61,6 @@ export const CippDataTable = (props) => {
   const [actionData, setActionData] = useState({ data: {}, action: {}, ready: false });
   const [graphFilterData, setGraphFilterData] = useState({});
   const waitingBool = api?.url ? true : false;
-
-  const settings = useSettings();
-
   const getRequestData = ApiGetCallWithPagination({
     url: api.url,
     data: { ...api.data },
@@ -182,11 +177,7 @@ export const CippDataTable = (props) => {
     },
     renderEmptyRowsFallback: ({ table }) =>
       getRequestData.data?.pages?.[0].Metadata?.QueueMessage ? (
-        <Box sx={{ py: 4 }}>
-          <center>
-            <Info /> {getRequestData.data?.pages?.[0].Metadata?.QueueMessage}
-          </center>
-        </Box>
+        <center>{getRequestData.data?.pages?.[0].Metadata?.QueueMessage}</center>
       ) : undefined,
     onColumnVisibilityChange: setColumnVisibility,
     ...modeInfo,
@@ -197,11 +188,6 @@ export const CippDataTable = (props) => {
               sx={{ color: action.color }}
               key={`actions-list-row-${index}`}
               onClick={() => {
-                if (settings.currentTenant === "AllTenants" && row.original?.Tenant) {
-                  settings.handleUpdate({
-                    currentTenant: row.original.Tenant,
-                  });
-                }
                 setActionData({
                   data: row.original,
                   action: action,

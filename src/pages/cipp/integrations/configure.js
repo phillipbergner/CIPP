@@ -120,62 +120,51 @@ const Page = () => {
                 {extension.alertText}
               </Alert>
             )}
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ mb: 2, display: "flex", alignItems: "center" }}
-            >
+            <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
               {extension?.hideTestButton !== true && (
-                <Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleIntegrationTest()}
-                    disabled={actionTestResults?.isLoading}
-                  >
-                    <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
-                      <BeakerIcon />
-                    </SvgIcon>
-                    Test
-                  </Button>
-                </Box>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleIntegrationTest()}
+                  disabled={actionTestResults?.isLoading}
+                >
+                  <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
+                    <BeakerIcon />
+                  </SvgIcon>
+                  Test
+                </Button>
               )}
               {extension?.forceSyncButton && (
-                <Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleIntegrationSync()}
-                    disabled={actionSyncResults.isLoading}
-                  >
-                    <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
-                      <ArrowPathIcon />
-                    </SvgIcon>
-                    Force Sync
-                  </Button>
-                </Box>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleIntegrationSync()}
+                  disabled={actionSyncResults.isLoading}
+                >
+                  <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
+                    <ArrowPathIcon />
+                  </SvgIcon>
+                  Force Sync
+                </Button>
               )}
               {extension?.links && (
                 <>
                   {extension.links.map((link, index) => (
-                    <Box>
-                      <Button
-                        href={link.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        color="inherit"
-                        key={index}
-                      >
-                        <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
-                          <ArrowTopRightOnSquareIcon />
-                        </SvgIcon>
-                        {link.name}
-                      </Button>
-                    </Box>
+                    <Button
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      color="inherit"
+                      key={index}
+                    >
+                      <SvgIcon fontSize="small" style={{ marginRight: "8" }}>
+                        <ArrowTopRightOnSquareIcon />
+                      </SvgIcon>
+                      {link.name}
+                    </Button>
                   ))}
                 </>
               )}
-
               <CippApiResults apiObject={actionTestResults} />
               <CippApiResults apiObject={actionSyncResults} />
             </Stack>
